@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class JobOffer {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column()
   name: string;
@@ -18,10 +18,13 @@ export class JobOffer {
   location: string;
 
   @Column()
-  sallary: string;
+  sallary: number;
 
   @Column()
-  badge: string;
+  companyBadge: string;
+
+  @Column()
+  daysAgo: number;
 
   @Column()
   duration: 'Full-Time' | 'Part-Time';
