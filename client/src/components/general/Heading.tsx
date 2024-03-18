@@ -20,19 +20,19 @@ export default function Heading({
   const getSizeClassList = useMemo(() => {
     switch (variant || tag) {
       case 'h1':
-        return 'text-4xl';
-      case 'h2':
         return 'text-3xl';
-      case 'h3':
+      case 'h2':
         return 'text-2xl';
-      case 'h4':
+      case 'h3':
         return 'text-xl';
-      case 'h5':
+      case 'h4':
         return 'text-lg';
-      case 'h6':
-        return 'text-md';
-      default:
+      case 'h5':
         return 'text-base';
+      case 'h6':
+        return 'text-sm';
+      default:
+        return 'text-xs';
     }
   }, [tag, variant]);
 
