@@ -11,7 +11,7 @@ export default function OffersListItem() {
           <Heading tag="h3" variant="h6">
             Junior Software Developer
           </Heading>
-          <p className="font-italic text-sm">Facebook</p>
+          <p className="italic text-sm">Facebook</p>
         </div>
         <div className="flex flex-col items-center ml-auto">
           <button className="mb-1">
