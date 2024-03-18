@@ -1,7 +1,9 @@
+import Header from './components/header/Header';
+
 function App() {
   return (
     <>
-      <p className="text-lg">init</p>
+      <Header />
     </>
   );
 }
