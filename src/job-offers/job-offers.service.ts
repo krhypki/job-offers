@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JobOffer } from 'src/entities/job-offer.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 
 @Injectable()
 export class JobOffersService {
@@ -15,5 +15,16 @@ export class JobOffersService {
   async findById(id: number) {
     const jobOffer = await this.repo.findOne({ where: { id } });
     return jobOffer;
+  }
+
+  async findByQuery(query: string) {
+    const jobOffers = await this.repo.find({
+      where: [
+        { name: Like(`%${query}%`) },
+        { qualifications: Like(`%${query}%`) },
+      ],
+    });
+
+    return jobOffers;
   }
 }
