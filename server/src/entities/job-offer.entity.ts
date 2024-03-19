@@ -18,7 +18,7 @@ export class JobOffer {
   location: string;
 
   @Column()
-  sallary: number;
+  salary: number;
 
   @Column()
   companyBadge: string;
