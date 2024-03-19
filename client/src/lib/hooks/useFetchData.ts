@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-export const useFetchData = <T>(endpoint: string) => {
+export const useFetchData = <T>(endpoint: string | null) => {
   const [isLoading, setIsLoading] = useState(false);
   const [offers, setOffers] = useState<T | null>(null);
 
   useEffect(() => {
+    if (!endpoint) return;
+
     const getData = async () => {
       setIsLoading(true);
       try {

@@ -6,7 +6,7 @@ import { Offer } from '../../lib/types';
 export default function OffersListItem({ offer }: { offer: Offer }) {
   return (
     <li className="border-b py-3.5 px-4">
-      <a href="#" className="flex items-center">
+      <a href={`#${offer.id}`} className="flex items-center">
         <Badge>{offer.companyBadge}</Badge>
         <div className="px-3">
           <Heading tag="h3" variant="h6">

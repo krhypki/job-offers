@@ -10,56 +10,60 @@ import OfferImg from './OfferImg';
 import OfferFeature from './OfferFeature';
 import OfferOtherDetailsRow from './OfferOtherDetailsRow';
 import Tile from '../general/Tile';
+import { useActiveOfferId } from '../../lib/hooks/useActiveOfferId';
+import { useFetchData } from '../../lib/hooks/useFetchData';
+import { Offer } from '../../lib/types';
+import OfferDetailsWrapper from './OfferDetailsWrapper';
+import Spinner from '../general/Spinner';
+import OfferDetailsEmptyState from './OfferDetailsEmptyState';
+import { currencyFormat } from '../../lib/utils/currency-format';
 
 export default function OfferDetails() {
+  const activeId = useActiveOfferId();
+  const [offer, isLoading] = useFetchData<Offer>(
+    activeId ? `/job-offers/${activeId}` : null,
+  );
+
+  if (isLoading) {
+    return (
+      <OfferDetailsWrapper>
+        <div className="flex items-center justify-center h-full">
+          <Spinner />
+        </div>
+      </OfferDetailsWrapper>
+    );
+  }
+
+  if (!offer) {
+    return <OfferDetailsEmptyState activeId={activeId} />;
+  }
+
   const features = [
-    { Icon: TimerIcon, text: 'Full-time' },
-    { Icon: IdCardIcon, text: '$90,000' },
-    { Icon: GlobeIcon, text: 'Global' },
-  ];
-
-  const qualifications = [
-    'JavaScript',
-    'CSS',
-    'React',
-    'HTML',
-    'NoSQL',
-    'Node.js',
-    'Vue',
-  ];
-
-  const reviews = [
-    'Nice place to learn the industry.',
-    'Knowledgeable coworkers.',
-    'Fast-paced but doable.',
-    'Good work-from-home policy.',
+    { Icon: TimerIcon, text: offer.duration },
+    { Icon: IdCardIcon, text: currencyFormat(offer.salary) },
+    { Icon: GlobeIcon, text: offer.location },
   ];
 
   return (
-    <section className="max-lg:col-span-12 col-span-8 bg-secondary-300">
+    <OfferDetailsWrapper>
       <OfferImg />
       <div className="px-8 max-sm:-mt-24 -mt-14">
         <div className="flex relative z-1 mb-8">
           <div>
             <Badge variant="primary" isLarge>
-              FB
+              {offer.companyBadge}
             </Badge>
             <div className="flex justify-between items-center mt-4">
-              <time className="text-sm">4d</time>
+              <time className="text-sm">{offer.daysAgo}d</time>
               <BookmarkFilledIcon className="text-secondary-400" />
             </div>
           </div>
           <div className="ml-6">
             <Heading tag="h2" className="text-white">
-              Software Developer
+              {offer.name}
             </Heading>
-            <p className="text-sm text-white italic mb-4">Facebook</p>
-            <p className="text-sm mb-6">
-              We're always looking for top talent in software development so we
-              want to learn about why you feel that's you, what drives you,
-              where you see your career headed, and why you think InsureNow
-              could be the right next move for you.
-            </p>
+            <p className="text-sm text-white italic mb-4">{offer.company}</p>
+            <p className="text-sm mb-6">{offer.description}</p>
             <div className="flex flex-wrap gap-x-8 gap-y-3">
               {features.map(({ Icon, text }) => (
                 <OfferFeature key={text} Icon={Icon}>
@@ -71,7 +75,7 @@ export default function OfferDetails() {
         </div>
         <OfferOtherDetailsRow heading="Qualifications">
           <div className="flex flex-wrap gap-3">
-            {qualifications.map((qualification) => (
+            {offer.qualifications.map((qualification) => (
               <Tile key={qualification}>{qualification}</Tile>
             ))}
           </div>
@@ -79,7 +83,7 @@ export default function OfferDetails() {
 
         <OfferOtherDetailsRow heading="Company Reviews">
           <div className="grid sm:grid-cols-2 gap-3">
-            {reviews.map((review) => (
+            {offer.reviews.map((review) => (
               <p key={review} className="text-sm italic">
                 {review}
               </p>
@@ -87,6 +91,6 @@ export default function OfferDetails() {
           </div>
         </OfferOtherDetailsRow>
       </div>
-    </section>
+    </OfferDetailsWrapper>
   );
 }
