@@ -4,7 +4,7 @@ type EmptyStateProps = {
 
 export default function EmptyState({ children }: EmptyStateProps) {
   return (
-    <div className="flex justify-center items-center h-full mx-auto">
+    <div className="flex flex-col justify-center items-center h-full mx-auto">
       {children}
     </div>
   );

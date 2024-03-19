@@ -1,9 +1,4 @@
-import {
-  BookmarkFilledIcon,
-  GlobeIcon,
-  IdCardIcon,
-  TimerIcon,
-} from '@radix-ui/react-icons';
+import { GlobeIcon, IdCardIcon, TimerIcon } from '@radix-ui/react-icons';
 import Badge from '../general/Badge';
 import Heading from '../general/Heading';
 import OfferImg from './OfferImg';
@@ -17,6 +12,7 @@ import OfferDetailsWrapper from './OfferDetailsWrapper';
 import Spinner from '../general/Spinner';
 import OfferDetailsEmptyState from './OfferDetailsEmptyState';
 import { currencyFormat } from '../../lib/utils/currency-format';
+import BookmarkButton from '../bookmarks/BookmarkButton';
 
 export default function OfferDetails() {
   const activeId = useActiveOfferId();
@@ -55,7 +51,7 @@ export default function OfferDetails() {
             </Badge>
             <div className="flex justify-between items-center mt-4">
               <time className="text-sm">{offer.daysAgo}d</time>
-              <BookmarkFilledIcon className="text-secondary-400" />
+              <BookmarkButton id={offer.id} />
             </div>
           </div>
           <div className="ml-6">

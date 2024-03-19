@@ -1,38 +1,73 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
+const fetchData = async <T>(endpoint: string | null): Promise<T | null> => {
+  let data = null;
+
+  try {
+    const response = await fetch(`/api/${endpoint}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch');
+    }
+    data = await response.json();
+  } catch (error) {
+    let errorMessage = 'Failed to fetch';
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    if (typeof error === 'string') {
+      errorMessage = error;
+    }
+
+    toast.error(errorMessage);
+  }
+
+  return data;
+};
+
 export const useFetchData = <T>(endpoint: string | null) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [offers, setOffers] = useState<T | null>(null);
+  const [items, setItems] = useState<T | null>(null);
 
   useEffect(() => {
-    if (!endpoint) return;
-
     const getData = async () => {
       setIsLoading(true);
-      try {
-        const response = await fetch(`/api/${endpoint}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch');
-        }
-        const data = await response.json();
-        setOffers(data);
-      } catch (error) {
-        let errorMessage = 'Failed to fetch';
-
-        if (error instanceof Error) {
-          errorMessage = error.message;
-        }
-        if (typeof error === 'string') {
-          errorMessage = error;
-        }
-
-        toast.error(errorMessage);
-      }
+      const data = await fetchData<T>(endpoint);
+      setItems(data);
       setIsLoading(false);
     };
 
-    getData();
+    if (endpoint) {
+      getData();
+    }
   }, [endpoint]);
-  return [offers, isLoading] as const;
+  return [items, isLoading] as const;
+};
+
+export const useFetchMultipleItems = <T>(
+  endpoints: Array<string | null>,
+): [Array<T>, boolean] => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [items, setItems] = useState<Array<T>>([]);
+
+  useEffect(() => {
+    const getItems = async () => {
+      setIsLoading(true);
+      const data = await Promise.all(
+        endpoints.map(async (endpoint) => {
+          if (!endpoint) {
+            return null;
+          }
+          return await fetchData<T>(endpoint);
+        }),
+      );
+      setItems(() => data.filter((el) => el) as T[]);
+      setIsLoading(false);
+    };
+
+    getItems();
+  }, [endpoints]);
+
+  return [items, isLoading] as const;
 };

@@ -3,14 +3,17 @@ import Main from './components/Main';
 import Header from './components/header/Header';
 import OffersContextProvider from './contexts/OffersContextProvider';
 import SearchQueryContextProvider from './contexts/SearchQueryContextProvider';
+import BookmarksContextProvider from './contexts/BookmarksContextProvider';
 
 function App() {
   return (
     <>
       <SearchQueryContextProvider>
         <OffersContextProvider>
-          <Header />
-          <Main />
+          <BookmarksContextProvider>
+            <Header />
+            <Main />
+          </BookmarksContextProvider>
         </OffersContextProvider>
       </SearchQueryContextProvider>
 

@@ -1,10 +1,10 @@
-import BookmarksToggle from '../bookmarks/BookmarksToggle';
+import BookmarksWrapper from '../bookmarks/BookmarksWrapper';
 import Heading from '../general/Heading';
 import Logo from '../general/Logo';
 
 export default function HeaderTop() {
   return (
-    <div className="flex text-white mb-4">
+    <div className="relative flex text-white mb-4">
       <Heading
         tag="h1"
         variant="h4"
@@ -14,7 +14,7 @@ export default function HeaderTop() {
         <Logo />
         JobOffers
       </Heading>
-      <BookmarksToggle />
+      <BookmarksWrapper />
     </div>
   );
 }
