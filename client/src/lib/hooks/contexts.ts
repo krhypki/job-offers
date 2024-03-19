@@ -1,5 +1,6 @@
 import { Context, useContext } from 'react';
 import { OffersContext } from '../../contexts/OffersContextProvider';
+import { SearchQueryContext } from '../../contexts/SearchQueryContextProvider';
 
 const useContextWithErrorHandle = <T>(context: Context<T>, name: string) => {
   const contextData = useContext(context);
@@ -13,4 +14,8 @@ const useContextWithErrorHandle = <T>(context: Context<T>, name: string) => {
 
 export function useOffersContext() {
   return useContextWithErrorHandle(OffersContext, 'useOffersContext');
+}
+
+export function useSearchQueryContext() {
+  return useContextWithErrorHandle(SearchQueryContext, 'useSearchQuerYContext');
 }

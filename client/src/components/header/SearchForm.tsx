@@ -1,13 +1,13 @@
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import Input from '../general/Input';
-import useInput from '../../lib/hooks/useInput';
+import { useSearchQueryContext } from '../../lib/hooks/contexts';
 
 type SearchFormProps = {
   placeholder: string;
 };
 
 export default function SearchForm({ placeholder }: SearchFormProps) {
-  const [searchValue, onSearchChange] = useInput('');
+  const { query, onQueryChange } = useSearchQueryContext();
 
   return (
     <form className="w-full max-w-xl relative">
@@ -15,8 +15,8 @@ export default function SearchForm({ placeholder }: SearchFormProps) {
         <MagnifyingGlassIcon height="24" width="24" />
       </button>
       <Input
-        value={searchValue}
-        onChange={onSearchChange}
+        value={query}
+        onChange={(event) => onQueryChange(event.target.value)}
         placeholder={placeholder}
         required
       />

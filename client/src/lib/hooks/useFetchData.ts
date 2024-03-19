@@ -16,7 +16,6 @@ export const useFetchData = <T>(endpoint: string) => {
         const data = await response.json();
         setOffers(data);
       } catch (error) {
-        console.log(error);
         let errorMessage = 'Failed to fetch';
 
         if (error instanceof Error) {

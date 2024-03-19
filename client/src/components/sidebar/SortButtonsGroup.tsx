@@ -4,7 +4,7 @@ import { SortBy } from '../../lib/types';
 import SortButton from './SortButton';
 
 export default function SortButtonsGroup() {
-  const { sortBy, setSortBy } = useOffersContext();
+  const { sortBy, handleChangeSortBy } = useOffersContext();
   const sortOptions: SortBy[] = ['salary', 'recent'];
 
   return (
@@ -12,7 +12,7 @@ export default function SortButtonsGroup() {
       {sortOptions.map((option) => (
         <SortButton
           key={option}
-          onClick={() => setSortBy(option)}
+          onClick={() => handleChangeSortBy(option)}
           sortBy={option}
           isActive={sortBy === option}
         />

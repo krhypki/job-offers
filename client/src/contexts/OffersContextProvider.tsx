@@ -1,7 +1,8 @@
-import { createContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useMemo, useState } from 'react';
 import { useFetchData } from '../lib/hooks/useFetchData';
 import { Offer, SortBy } from '../lib/types';
 import { OFFERS_PER_PAGE } from '../lib/constants';
+import { useSearchQueryContext } from '../lib/hooks/contexts';
 
 type OffersContextType = {
   offers: Offer[];
@@ -11,7 +12,7 @@ type OffersContextType = {
   numberOfPages: number;
   sortBy: SortBy;
   setCurrentPage: (page: number) => void;
-  setSortBy: (sortBy: SortBy) => void;
+  handleChangeSortBy: (sortBy: SortBy) => void;
 };
 
 type OffersContextProviderProps = {
@@ -23,9 +24,12 @@ export const OffersContext = createContext<OffersContextType | null>(null);
 export default function OffersContextProvider({
   children,
 }: OffersContextProviderProps) {
+  const { debouncedQuery } = useSearchQueryContext();
+  const [offers, isLoading] = useFetchData<Offer[]>(
+    `/job-offers${debouncedQuery ? '?query=' + debouncedQuery : ''}`,
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortBy>('recent');
-  const [offers, isLoading] = useFetchData<Offer[]>('/job-offers');
 
   const numberOfResults = offers?.length || 0;
   const numberOfPages = numberOfResults / OFFERS_PER_PAGE;
@@ -53,6 +57,11 @@ export default function OffersContextProvider({
     );
   }, [sortedOffers, currentPage]);
 
+  const handleChangeSortBy = useCallback((newSortBy: SortBy) => {
+    setSortBy(newSortBy);
+    setCurrentPage(1);
+  }, []);
+
   return (
     <OffersContext.Provider
       value={{
@@ -62,7 +71,7 @@ export default function OffersContextProvider({
         currentPage,
         numberOfPages,
         sortBy,
-        setSortBy,
+        handleChangeSortBy,
         setCurrentPage,
       }}
     >
