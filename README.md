@@ -1,15 +1,14 @@
 ### API
 
-Run migration to get basic data
-
-> npm run migration:run
-
-Start dev server
-
-> npm run start:dev
+```
+ npm i
+ npm run migration:run
+ npm run start:dev
+```
 
 ### Client
 
-Start dev server
-
-> npm run dev
+```
+npm i
+npm run dev
+```
