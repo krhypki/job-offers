@@ -14,6 +14,9 @@ export class JobOffersService {
 
   async findById(id: number) {
     const jobOffer = await this.repo.findOne({ where: { id } });
+    if (!jobOffer) {
+      throw new Error('Job offer not found');
+    }
     return jobOffer;
   }
 
