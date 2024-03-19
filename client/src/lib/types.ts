@@ -1,4 +1,4 @@
-export type SortBy = 'recent' | 'sallary';
+export type SortBy = 'recent' | 'salary';
 
 export type PaginationDirection = 'next' | 'prev';
 
@@ -11,7 +11,7 @@ export type Offer = {
   id: number;
   location: string;
   name: string;
-  sallary: number;
+  salary: number;
   qualifications: string[];
   reviews: string[];
 };

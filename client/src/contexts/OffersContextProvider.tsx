@@ -36,8 +36,8 @@ export default function OffersContextProvider({
         return a.daysAgo - b.daysAgo;
       }
 
-      if (sortBy === 'sallary') {
-        return b.sallary - a.sallary;
+      if (sortBy === 'salary') {
+        return b.salary - a.salary;
       }
 
       return 0;

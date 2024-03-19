@@ -5,7 +5,7 @@ import SortButton from './SortButton';
 
 export default function SortButtonsGroup() {
   const { sortBy, setSortBy } = useOffersContext();
-  const sortOptions: SortBy[] = ['sallary', 'recent'];
+  const sortOptions: SortBy[] = ['salary', 'recent'];
 
   return (
     <div className="flex gap-2">
