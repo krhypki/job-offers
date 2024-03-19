@@ -1,4 +1,4 @@
-import GridRow from '../GridRow';
+import GridRow from '../general/layout/GridRow';
 import Heading from '../general/Heading';
 
 type OfferOtherDetailsRowType = {

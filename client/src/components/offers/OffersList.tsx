@@ -1,11 +1,16 @@
 import OffersListItem from './OffersListItem';
+import { useOffersContext } from '../../lib/hooks/contexts';
 
 export default function OffersList() {
-  const offers = [1, 2, 3, 4, 5, 6, 7];
+  const { offers } = useOffersContext();
+
+  if (!offers) {
+    return null;
+  }
   return (
     <ul>
       {offers.map((offer) => (
-        <OffersListItem key={offer} />
+        <OffersListItem key={offer.id} offer={offer} />
       ))}
     </ul>
   );

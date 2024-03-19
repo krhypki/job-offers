@@ -30,7 +30,7 @@ export default function Button({
   return (
     <button
       {...attrs}
-      className={`text-[10px] py-[6px] px-[5px] rounded-sm uppercase ${variantClassName} ${className}`}
+      className={`text-[10px] py-[6px] px-[5px] rounded uppercase ${variantClassName} ${className}`}
       onClick={onClick}
     >
       {children}

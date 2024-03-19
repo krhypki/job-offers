@@ -1,12 +1,22 @@
-import Button from '../general/Button';
+import { useOffersContext } from '../../lib/hooks/contexts';
+import { SortBy } from '../../lib/types';
+
+import SortButton from './SortButton';
 
 export default function SortButtonsGroup() {
+  const { sortBy, setSortBy } = useOffersContext();
+  const sortOptions: SortBy[] = ['sallary', 'recent'];
+
   return (
-    <div>
-      <Button variant="secondary" className="mr-2">
-        sallary
-      </Button>
-      <Button variant="secondary">recent</Button>
+    <div className="flex gap-2">
+      {sortOptions.map((option) => (
+        <SortButton
+          key={option}
+          onClick={() => setSortBy(option)}
+          sortBy={option}
+          isActive={sortBy === option}
+        />
+      ))}
     </div>
   );
 }

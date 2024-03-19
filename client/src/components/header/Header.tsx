@@ -1,4 +1,4 @@
-import Container from '../Container';
+import Container from '../general/layout/Container';
 
 import HeaderTop from './HeaderTop';
 import SearchForm from './SearchForm';
