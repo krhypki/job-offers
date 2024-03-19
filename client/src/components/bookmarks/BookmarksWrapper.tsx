@@ -5,8 +5,8 @@ import BookmarksToggle from './BookmarksToggle';
 export default function BookmarksWrapper() {
   const [showBookmarks, setShowBookmarks] = useState(false);
 
-  const handleBookmarksToggle = () => {
-    setShowBookmarks(!showBookmarks);
+  const handleBookmarksToggle = (status?: boolean) => {
+    setShowBookmarks(status ?? !showBookmarks);
   };
 
   return (

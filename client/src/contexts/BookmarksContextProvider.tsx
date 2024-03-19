@@ -20,7 +20,6 @@ export default function BookmarksContextProvider({
   const [bookmarks, setBookkmarks] = useLocalStorage<number[]>('bookmarks', []);
 
   const toggleBookmark = (id: number) => {
-    console.log(id);
     if (bookmarks.includes(id)) {
       setBookkmarks(bookmarks.filter((bookmarkId) => bookmarkId !== id));
     } else {

@@ -18,8 +18,6 @@ export default function BookmarksList() {
   const [bookmarkedOffers, isLoading] =
     useFetchMultipleItems<Offer>(bookmarksEndpoints);
 
-  console.log(bookmarkedOffers);
-
   return (
     <div className="text-black absolute top-full left-1/2 -translate-x-1/2 min-h-16 w-[calc(100%_+_64px)] bg-white shadow-lg z-10">
       <ul>
